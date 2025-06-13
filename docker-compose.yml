@@ -1,8 +1,8 @@
 
 services:
-  rabbitmq:
+  rabbitmq-choreography:
     image: rabbitmq:4.1.0-management-alpine
-    container_name: rabbitmq
+    container_name: rabbitmq-choreography
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -20,11 +20,11 @@ services:
       retries: 5
 
 
-  order-service:
+  order-service-choreography:
     build: ./order-service
-    container_name: order-service
+    container_name: order-service-choreography
     ports:
-      - "3001:3001"
+      - "4001:4001"
     environment:
       RABBITMQ_USER: ${RABBITMQ_USER}
       RABBITMQ_PASS: ${RABBITMQ_PASS}
@@ -34,12 +34,12 @@ services:
     networks:
       - rabbitmq_network
     depends_on:
-      rabbitmq:
+      rabbitmq-choreography:
         condition: service_healthy
 
-  inventory-service:
+  inventory-service-choreography:
     build: ./inventory-service
-    container_name: inventory-service
+    container_name: inventory-service-choreography
     environment:
       RABBITMQ_USER: ${RABBITMQ_USER}
       RABBITMQ_PASS: ${RABBITMQ_PASS}
@@ -49,12 +49,12 @@ services:
     networks:
       - rabbitmq_network
     depends_on:
-      rabbitmq:
+      rabbitmq-choreography:
         condition: service_healthy
 
-  notification-service:
+  notification-service-choreography:
     build: ./notification-service
-    container_name: notification-service
+    container_name: notification-service-choreography
     environment:
       RABBITMQ_USER: ${RABBITMQ_USER}
       RABBITMQ_PASS: ${RABBITMQ_PASS}
@@ -64,7 +64,7 @@ services:
     networks:
       - rabbitmq_network
     depends_on:
-      rabbitmq:
+      rabbitmq-choreography:
         condition: service_healthy
 
 volumes:
