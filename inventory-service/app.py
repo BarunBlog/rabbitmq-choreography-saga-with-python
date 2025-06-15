@@ -5,7 +5,7 @@ from rabbitmq import connect_rabbit, publish_message, consume_message
 
 async def process_inventory_callback(body: bytes):
     data = json.loads(body.decode())
-    print(f"[Inventory] Received 'order.created' event: {data}", flush=True)
+    print(f"[Inventory] Received 'payment.completed' event: {data}", flush=True)
 
     # Simulate inventory update
     data['inventory_status'] = 'updated'
@@ -24,7 +24,7 @@ async def process_inventory_callback(body: bytes):
 async def main():
     await connect_rabbit()
     await asyncio.gather(
-        consume_message(exchange="order_exchange", queue="inventory.order.created.queue", routing_key="order.created", handler=process_inventory_callback)
+        consume_message(exchange="payment_exchange", queue="inventory.payment.completed.queue", routing_key="payment.completed", handler=process_inventory_callback)
     )
 
 if __name__ == "__main__":
