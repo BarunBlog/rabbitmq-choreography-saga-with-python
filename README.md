@@ -50,7 +50,7 @@ This command will build and start the Docker containers required for the project
 
 ## Visit RabbitMQ dashboard:
 ```
-http://localhost:15673
+http://localhost:15672
 Username: Testuser
 Password: Testuser@1234
 ```
