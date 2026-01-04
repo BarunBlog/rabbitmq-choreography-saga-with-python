@@ -33,4 +33,4 @@ jobs:
           context: ./services/${{ matrix.service }}
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository }}-${{ matrix.service }}:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/choreography-saga-${{ matrix.service }}:latest
