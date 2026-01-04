@@ -13,10 +13,10 @@ jobs:
     strategy:
       matrix:
         service:
-          - choreography-inventory-service
-          - choreography-notification-service
-          - choreography-order-service
-          - choreography-payment-service
+          - inventory-service
+          - notification-service
+          - order-service
+          - payment-service
 
     steps:
       - name: Checkout code
@@ -33,4 +33,4 @@ jobs:
           context: ./services/${{ matrix.service }}
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.service }}:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository }}-${{ matrix.service }}:latest
